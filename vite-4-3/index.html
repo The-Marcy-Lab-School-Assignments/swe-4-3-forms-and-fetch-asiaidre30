@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pokemon App</title>
+  </head>
+
+  <body>
+    <h1>Pokemon Discovery App</h1>
+
+    <p id="error"></p>
+    <p id="success"></p>
+
+    <!-- button to get random pokemon -->
+    <button id="discover-button">Discover Random Pokemon</button>
+
+    <ul id="discovered-list"></ul>
+
+    <h2>Capture Discovered Pokemon</h2>
+
+    <form id="capture-form">
+      <div>
+        <label>Name:</label>
+        <input type="text" name="name" required />
+      </div>
+      <div>
+        <label>Types:</label>
+        <input type="text" name="types" required />
+      </div>
+
+      <div>
+        <label>
+          <input type="checkbox" name="isFavorite" />
+          Favorite?
+        </label>
+      </div>
+
+      <button type="submit">Capture Pokemon</button>
+    </form>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
