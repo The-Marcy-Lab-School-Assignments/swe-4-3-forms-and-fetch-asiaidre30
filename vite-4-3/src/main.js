@@ -1,10 +1,11 @@
 //used js bin to write code
-
 import { getRandomPokemon, postDiscoveredPokemon } from "./fetch-helpers.js";
 import { renderPokemon, renderError, renderSuccess } from "./dom-helpers.js";
 
 const button = document.getElementById("discover-button");
 const form = document.getElementById("capture-form");
+const nameInput = form.querySelector('[name="name"]');
+const typesInput = form.querySelector('[name="types"]');
 
 async function loadPokemon() {
   const { data, error } = await getRandomPokemon();
@@ -17,6 +18,8 @@ async function loadPokemon() {
   renderError("");
   renderPokemon(data);
   renderSuccess(`${data.name} was discovered!`);
+  nameInput.value = data.name;
+  typesInput.value = data.types;
 }
 
 loadPokemon();

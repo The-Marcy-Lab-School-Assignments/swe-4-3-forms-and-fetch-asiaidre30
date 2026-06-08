@@ -18,13 +18,22 @@ fetch("https://pokeapi.co/api/v2/pokemon/pikachu")
 
 **Your Answer:**
 
-`response.json()` was not returned, so the next `.then` gets `undefined`.
+There is no bug in the code as written. response.json() is correctly returned, so data will contain the parsed Pokémon data. If data were undefined, it would usually mean the previous .then() forgot to return a value.
 
 ## Question 2: Development Servers and CORS
 
 A student opens their `index.html` file directly in the browser (using the `file://` protocol). Their `<script type="module">` tag and `fetch()` call both fail. Explain why, and what they should do instead.
 
 **Your Answer:**
+
+When you open index.html with the file:// protocol, the browser treats the page as a local file rather than a web application. ES modules (<script type="module">) and many fetch() requests are blocked for security reasons, causing errors.
+Instead, run the project through a development server such as:
+
+- VS Code Live Server
+- Vite (npm run dev)
+- Parcel
+- Webpack Dev Server
+- This serves the page over http://localhost, allowing modules and fetch() to work correctly.
 
 ## Question 3: The `fetch` Response Object
 
@@ -36,6 +45,8 @@ const data = await response.json();
 ```
 
 **Your Answer:**
+
+fetch() only fails if there is a network problem. If the server sends back a 404 or 500 error, fetch() still succeeds. Checking response.ok lets us catch those HTTP errors before trying to use the data.
 
 ## Question 4: Async/Await Conversion
 
@@ -59,6 +70,25 @@ const getJoke = () => {
 
 **Your Answer:**
 
+const getJoke = async () => {
+try {
+const response = await fetch(
+"https://v2.jokeapi.dev/joke/Programming?type=twopart"
+);
+
+    if (!response.ok) {
+      throw Error(`Fetch failed. ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return { data, error: null };
+
+} catch (error) {
+return { data: null, error };
+}
+};
+
 ## Question 5: `event.preventDefault()` and Form Handling
 
 A student writes a form handler but the data never displays. Their code:
@@ -73,6 +103,17 @@ form.addEventListener("submit", (event) => {
 What is wrong? What happens when they click submit, and how do they fix it?
 
 **Your Answer:**
+
+The page reloads when the form is submitted, so the data disappears right away. To fix it, use event.preventDefault() before reading the form data.
+
+```js
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const name = form.elements.name.value;
+  document.querySelector("#output").textContent = name;
+});
+```
 
 ## Question 6: Putting It All Together
 
@@ -90,3 +131,14 @@ The steps below describe how to build a form that fetches Pokemon data from `htt
 - J. Create the HTML form with a name input and output elements for displaying results
 
 **Your Answer:**
+
+Create the form (J)
+Add the submit event listener (E)
+Prevent the page from reloading (B)
+Get the Pokémon name from the input (G)
+Send the fetch request (H)
+Check if the request was successful (C)
+Convert the response to JSON (A)
+Display the Pokémon data on the page (D)
+Reset the form (I)
+If anything goes wrong, show an error message (F)

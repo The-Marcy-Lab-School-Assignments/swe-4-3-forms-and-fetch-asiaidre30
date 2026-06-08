@@ -11,7 +11,6 @@
     <p id="error"></p>
     <p id="success"></p>
 
-    <!-- button to get random pokemon -->
     <button id="discover-button">Discover Random Pokemon</button>
 
     <ul id="discovered-list"></ul>
@@ -20,21 +19,19 @@
 
     <form id="capture-form">
       <div>
-        <label>Name:</label>
-        <input type="text" name="name" required />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
       </div>
       <div>
-        <label>Types:</label>
-        <input type="text" name="types" required />
+        <label for="types">Types:</label>
+        <input type="text" id="types" name="types" required />
       </div>
-
       <div>
         <label>
           <input type="checkbox" name="isFavorite" />
           Favorite?
         </label>
       </div>
-
       <button type="submit">Capture Pokemon</button>
     </form>
 
